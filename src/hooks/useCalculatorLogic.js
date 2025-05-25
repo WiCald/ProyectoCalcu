@@ -70,7 +70,10 @@ export default function useCalculatorLogic() {
   }
 
   const handleOperator = nextOp => {
+    // Normaliza cualquier signo unicode “−” a ASCII “-”
+    const op = nextOp === '−' ? '-' : nextOp
     const inputValue = parseFloat(display)
+
     if (firstValue == null) {
       setFirstValue(inputValue)
     } else if (operator) {
@@ -81,6 +84,7 @@ export default function useCalculatorLogic() {
         '÷': () => inputValue === 0 ? NaN : firstValue / inputValue,
         '%': () => firstValue % inputValue
       }[operator]()
+
       if (isNaN(result) || result < 0) {
         setDisplay('ERROR')
         setFirstValue(null)
@@ -89,10 +93,11 @@ export default function useCalculatorLogic() {
       }
       const formatted = formatResult(result)
       setDisplay(formatted)
-      setFirstValue(isNaN(Number(formatted)) ? null : parseFloat(formatted))
+      setFirstValue(parseFloat(formatted))
     }
+
     setWaiting(true)
-    setOperator(nextOp)
+    setOperator(op)
   }
 
   const handleEqual = () => {
