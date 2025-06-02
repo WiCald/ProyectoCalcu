@@ -2,7 +2,7 @@
   "name": "calcuweb",
   "version": "1.0.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "https://wicald.github.io/ProyectoCalcu",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
